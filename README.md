@@ -1,10 +1,10 @@
-# musicplayer
+# Vue3 Music Player
+A simple HTML offline audio player built with Vue3 
 
 ## Project setup
 ```
 npm install
 ```
-
 ### Compiles and hot-reloads for development
 ```
 npm run serve

@@ -8,8 +8,18 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.2",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "fs": "^0.0.1-security",
+    "id3js": "^2.1.1",
+    "mp3tag.js": "^3.2.0",
+    "pinia": "^2.0.11",
+    "postcss": "^8.4.6",
+    "sass-loader": "^12.6.0",
+    "tailwindcss": "^3.0.23",
+    "tailwindcss-filters": "^3.0.0",
+    "vue": "^3.2.13",
+    "vue-material-design-icons": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -39,5 +49,10 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  }
 }
