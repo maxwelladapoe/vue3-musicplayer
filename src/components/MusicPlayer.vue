@@ -3,9 +3,11 @@
   <div class="flex h-screen relative flex-col lg:flex-row relative">
     <div class="h-screen w-screen bg-gray-600 bg-opacity-90 flex items-center justify-center absolute z-[99999]"
          v-if="files.length ==0">
-      <div class="w-6/12 p-8 text-center" >
+      <div class="w-6/12 p-8 text-center">
         <p class="text-2xl font-bold text-white">Select some MP3s from your PC</p>
-        <button class="rounded-xl flex justify-center items-center py-2  px-4 border border-white mt-5 text-white mx-auto" @click="openFileSelector">
+        <button
+            class="rounded-xl flex justify-center items-center py-2  px-4 border border-white mt-5 text-white mx-auto"
+            @click="openFileSelector">
           <MusicNotePlusIcon class="mr-2"/>
           <span class="font-bold">Select Mp3</span>
         </button>
@@ -15,7 +17,7 @@
          class="backImage"></div>
     <input type="file" multiple class="hidden" ref="fileSelector" accept=".mp3,audio/*" @change="onFileChange">
     <PlayerWrap :currentFile="currentFile" @playEnded="playEnded" @playNext="playNextFile"
-                @playPrevious="playPreviousFile" @pause="pause" @play="play"/>
+                @playPrevious="playPreviousFile" @pause="pause" @play="play" @repeat="repeat"/>
     <div class="playlistWrap" :class="showPlaylist?'show':'hide'">
       <PlaylistWrap :files="files" @playFile="loadAndPlayFile" :currentFileID="currentFile.id"
                     :currentFileIsPlaying="currentFile.isPlaying" @play="play" @pause="pause"/>
@@ -44,6 +46,7 @@ import PlaylistMusicIcon from "vue-material-design-icons/PlaylistMusic";
 import MusicNotePlusIcon from "vue-material-design-icons/MusicNotePlus";
 import MP3Tag from "mp3tag.js"
 import {computed, reactive, ref} from "vue";
+
 let currentFile = reactive({
   id: null,
   tags: {
@@ -54,6 +57,7 @@ let currentFile = reactive({
   isPlaying: false
 });
 let files = reactive([]);
+let repeatMode = ref('off');
 const fileSelector = ref("");
 let showPlaylist = ref(false);
 const openFileSelector = () => {
@@ -79,19 +83,6 @@ let AlbumArt = computed(() => {
 const onFileChange = async (event) => {
   let uploadedFiles = event.target.files;
   let filesLength = files.length;
-  if (files.length === 0) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const buffer = e.target.result
-      // MP3Tag Usage
-      const mp3tag = new MP3Tag(buffer)
-      mp3tag.read()
-      let file = {id: 0, tags: mp3tag.tags, fileData: uploadedFiles[0], isPlaying: false}
-      loadAndPlayFile(file)
-    }
-    reader.readAsArrayBuffer(uploadedFiles[0]);
-
-  }
   for (let i = 0; i < uploadedFiles.length; i++) {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -100,6 +91,9 @@ const onFileChange = async (event) => {
       mp3tag.read()
       let file = {
         id: filesLength, tags: mp3tag.tags, fileData: uploadedFiles[i], isPlaying: false,
+      }
+      if(filesLength===0){
+        loadAndPlayFile(file)
       }
       files.push(file);
       filesLength++;
@@ -116,15 +110,39 @@ const loadAndPlayFile = (file) => {
     file.isPlaying = false;
   })
 };
-const playEnded = () => {
-  playNextFile();
-};
+
 const play = () => {
   currentFile.isPlaying = true;
 }
 const pause = () => {
   currentFile.isPlaying = false;
 }
+
+const repeat = (mode) => {
+  repeatMode.value = mode;
+}
+
+const playEnded = () => {
+  let currentFileIndex = files.findIndex(element => element.id === currentFile.id);
+  if (repeatMode.value === 'one') {
+    loadAndPlayFile(files[currentFileIndex]);
+  }
+
+  if (repeatMode.value === 'all') {
+    if (currentFileIndex < (files.length - 1)) {
+      loadAndPlayFile(files[currentFileIndex + 1])
+    } else {
+      loadAndPlayFile(files[0])
+    }
+  }
+
+  if (repeatMode.value ==="off"){
+    if (currentFileIndex < (files.length - 1)) {
+      loadAndPlayFile(files[currentFileIndex + 1])
+    }
+  }
+
+};
 const playNextFile = () => {
 
   let currentFileIndex = files.findIndex(element => element.id === currentFile.id);

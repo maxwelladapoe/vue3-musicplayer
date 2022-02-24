@@ -24,12 +24,15 @@
                   <SkipNextIcon :size="32"/>
                 </button>
               </div>
-              <div>
+              <div class="flex">
                 <button @click="repeatModeChange">
-                  <RepeatVariantIcon v-if="repeatMode ==='off'"/>
+                  <RepeatVariantIcon v-if="repeatMode ==='all'"/>
                   <RepeatOnceIcon v-if="repeatMode ==='one'"/>
-                  <RepeatOffIcon v-if="repeatMode ==='all'"/>
+                  <RepeatOffIcon v-if="repeatMode ==='off'"/>
                 </button>
+                <div class="bg-gray-500 rounded-full text-white text-xs px-3 flex justify-center items-center ml-2">
+                  <p>{{repeatMode}}</p>
+                </div>
               </div>
             </div>
             <div id="description" class="flex items-center">
@@ -141,11 +144,12 @@ const repeatModeChange = () => {
   if (repeatMode.value === 'off') {
     repeatMode.value = 'one'
   } else if (repeatMode.value === 'one') {
-    repeatMode.value = 'all'
+    repeatMode.value = 'all';
   } else if (repeatMode.value === 'all') {
-    repeatMode.value = 'off'
+    repeatMode.value = 'off';
   }
-  emit('repeat', repeatMode)
+
+  emit('repeat', repeatMode.value);
 };
 let AlbumArt = computed(() => {
 
