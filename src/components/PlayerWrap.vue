@@ -1,7 +1,6 @@
 <template>
   <audio :src="currentAudioSrc" ref="htmlAudioPlayer"/>
   <div class="h-100 flex-1 flex items-center justify-center relative">
-
     <div class="w-4/5 ">
       <div class="flex  flex-col w-100 container">
         <div class="flex">
