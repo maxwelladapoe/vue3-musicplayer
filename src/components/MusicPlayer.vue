@@ -3,7 +3,7 @@
   <div class="flex h-screen relative  relative">
     <div class="h-screen w-screen bg-gray-600 bg-opacity-90 flex items-center justify-center absolute z-[99999]"
          v-if="files.length ===0">
-      <div class="w-6/12 p-8 text-center">
+      <div class=" w-10/12 lg:w-6/12 p-8 text-center">
         <p class="text-2xl font-bold text-white">Select some MP3s from your PC</p>
         <button
             class="rounded-xl flex justify-center items-center py-2  px-4 border border-white mt-5 text-white mx-auto"
@@ -84,21 +84,27 @@ const onFileChange = async (event) => {
   let uploadedFiles = event.target.files;
   let filesLength = files.length;
   for (let i = 0; i < uploadedFiles.length; i++) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const buffer = e.target.result
-      const mp3tag = new MP3Tag(buffer)
-      mp3tag.read()
-      let file = {
-        id: filesLength, tags: mp3tag.tags, fileData: uploadedFiles[i], isPlaying: false,
+
+    if(uploadedFiles[i].type.match('audio/mpeg')){
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const buffer = e.target.result
+        const mp3tag = new MP3Tag(buffer)
+        mp3tag.read()
+        let file = {
+          id: filesLength, tags: mp3tag.tags, fileData: uploadedFiles[i], isPlaying: false,
+        }
+        if(filesLength===0){
+          loadAndPlayFile(file)
+        }
+        files.push(file);
+        filesLength++;
       }
-      if(filesLength===0){
-        loadAndPlayFile(file)
-      }
-      files.push(file);
-      filesLength++;
+      reader.readAsArrayBuffer(uploadedFiles[i]);
+    }else{
+      // throw error here
     }
-    reader.readAsArrayBuffer(uploadedFiles[i]);
+
   }
 };
 const loadAndPlayFile = (file) => {
