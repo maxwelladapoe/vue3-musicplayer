@@ -25,6 +25,7 @@
   width: 4rem;
   @apply rounded-xl flex justify-center items-center bg-black;
 }
+
 .floating-btn-bottom {
   position: absolute !important;
   top: unset;
@@ -40,10 +41,10 @@
 .album-art {
   width: 20rem;
   height: 20rem;
- border-radius: 1.5rem;
+  border-radius: 1.5rem;
 }
 
-.wave-wrap{
+.wave-wrap {
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -53,32 +54,35 @@
   z-index: -1;
 }
 
-.backImage{
+.backImage {
   width: 100vw;
   height: 100vh;
   z-index: -2;
-  opacity: 0.2;
-filter:blur(0.8rem);
+  opacity: 0.3;
+  filter: blur(0.8rem);
 }
 
-.playlistWrap{
-  @apply  h-full right-0;
-  background-color: rgb(55, 65, 81,0.8);
+.playlistWrap {
+  @apply h-full right-0;
+  background-color: rgb(55, 65, 81, 0.8);
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   overflow-x: hidden;
   overflow-y: auto;
-  &.show{
-    @apply w-3/12;
-  }
-  &.hide{
-    @apply w-0;
-  }
+
 }
 
-.progress-bar,.circle-controller, .animate-all{
+.playlistWrap .show {
+  @apply w-3/12;
+}
+
+.playlistWrap .hide {
+  @apply w-0;
+}
+
+.progress-bar, .circle-controller, .animate-all {
   -webkit-transition: all 0.1s ease-out;
   -moz-transition: all 0.1s ease-out;
   -o-transition: all 0.1s ease-out;
