@@ -17,31 +17,26 @@
 .floating-btn {
   position: absolute !important;
   top: unset;
-  right: 1rem !important;
-  bottom: 1rem !important;
   left: unset;
   z-index: 99;
   height: 4rem;
   width: 4rem;
-  @apply rounded-xl flex justify-center items-center bg-black;
+  @apply rounded-xl flex justify-center items-center bg-black bottom-5 right-5;
 }
 
 .floating-btn-bottom {
   position: absolute !important;
   top: unset;
-  right: 1rem !important;
-  bottom: 7rem !important;
   left: unset;
   z-index: 99;
   height: 4rem;
   width: 4rem;
-  @apply rounded-xl flex justify-center items-center bg-black;
+  @apply rounded-xl flex justify-center items-center bg-black bottom-5 lg:bottom-24 right-24 lg:right-5;
 }
 
 .album-art {
-  width: 20rem;
-  height: 20rem;
   border-radius: 1.5rem;
+  @apply w-64 h-64 lg:w-80 lg:h-80
 }
 
 .wave-wrap {
@@ -71,14 +66,14 @@
   transition: all 0.2s ease-in-out;
   overflow-x: hidden;
   overflow-y: auto;
-
+  @apply absolute lg:static;
 }
 
-.playlistWrap .show {
-  @apply w-3/12;
+.playlistWrap.show {
+  @apply  w-full lg:w-3/12;
 }
 
-.playlistWrap .hide {
+.playlistWrap.hide {
   @apply w-0;
 }
 

@@ -1,8 +1,8 @@
 <template>
 
-  <div class="flex h-screen relative flex-col lg:flex-row relative">
+  <div class="flex h-screen relative  relative">
     <div class="h-screen w-screen bg-gray-600 bg-opacity-90 flex items-center justify-center absolute z-[99999]"
-         v-if="files.length ==0">
+         v-if="files.length ==30">
       <div class="w-6/12 p-8 text-center">
         <p class="text-2xl font-bold text-white">Select some MP3s from your PC</p>
         <button

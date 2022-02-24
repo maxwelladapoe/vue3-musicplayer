@@ -1,14 +1,18 @@
 <template>
   <audio :src="currentAudioSrc" ref="htmlAudioPlayer"/>
   <div class="h-100 flex-1 flex items-center justify-center relative">
-    <div class="w-4/5 ">
-      <div class="flex  flex-col w-100 container">
-        <div class="flex">
+    <div class="w-4/5">
+      <div class="flex flex-col w-100 container">
+
+        <div class="flex flex-wrap lg:flex-nowrap  justify-center lg:justify-start bg-red">
+
           <div class="album-art">
             <div :style="{background:`url('${AlbumArt}') red center center no-repeat`, backgroundSize:'cover'}"
                  class="album-art"></div>
           </div>
-          <div class="song-details flex-1  flex flex-col justify-start  ml-8  py-4">
+
+          <div class="song-details w-full lg:w-auto lg:flex-1 flex flex-col justify-start mt-5 lg:mt-0 lg:ml-8 py-4">
+
             <div class="flex justify-between items-center mb-6">
               <div class="flex">
                 <button class="mr-4" @click="$emit('playPrevious')">
@@ -31,13 +35,13 @@
                   <RepeatOffIcon v-if="repeatMode ==='off'"/>
                 </button>
                 <div class="bg-gray-500 rounded-full text-white text-xs px-3 flex justify-center items-center ml-2">
-                  <p>{{repeatMode}}</p>
+                  <p>{{ repeatMode }}</p>
                 </div>
               </div>
             </div>
             <div id="description" class="flex items-center">
               <div class="flex-1">
-                <p class="text-5xl font-bold ">{{ currentFile.tags.title }}</p>
+                <p class="text-3xl lg:text-5xl font-bold ">{{ currentFile.tags.title }}</p>
                 <p class="font-thin ">
                   <span>{{ currentFile.tags.artist || currentFile.fileData.name }}</span>
                 </p>
@@ -49,6 +53,8 @@
             </div>
           </div>
         </div>
+
+
         <div class="mt-12 flex justify-between items-center ">
           <div><p class="text-xs mr-2">{{ fancyTimeFormat(playTimeData.currentSeconds) }}</p></div>
           <div class="progress w-100 h-1 bg-gray-400 flex-1 relative">
