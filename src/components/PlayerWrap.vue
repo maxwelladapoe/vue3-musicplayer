@@ -7,7 +7,7 @@
         <div class="flex flex-wrap lg:flex-nowrap  justify-center lg:justify-start bg-red">
 
           <div class="album-art">
-            <div :style="{background:`url('${AlbumArt}') red center center no-repeat`, backgroundSize:'cover'}"
+            <div :style="{background:`url('${AlbumArt}') transparent center center no-repeat`, backgroundSize:'cover'}"
                  class="album-art"></div>
           </div>
 

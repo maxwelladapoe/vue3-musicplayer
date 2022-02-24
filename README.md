@@ -1,5 +1,7 @@
 # Vue3 Music Player
-A simple HTML offline audio player built with Vue3 
+A simple HTML offline audio player built with Vue3.
+
+You can check it out [HERE](https://hungry-varahamihira-725364.netlify.app)
 
 ## Project setup
 ```
